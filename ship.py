@@ -1,18 +1,31 @@
-import  pygame
+import pygame
 
 class Ship:
-    """管理飞船g的类"""
-    def __init__(self,ai_game):
-        """初始化飞创并设置起初始位置"""
+    """管理飞船的类"""
+    def __init__(self, ai_game):
+        self.ai_game = ai_game
         self.screen = ai_game.screen
-        self.screen_rect = ai_game.screen.get_rect()
+        self.screen_rect = ai_game.screen.get_rect()  # 确保这是屏幕矩形
 
-        #加载飞船图像并获取其外接矩形
-        self.image = pygame.image.load('images/small_rou.bmp')
+        self.image = pygame.image.load('images/small_ruo.png')
         self.rect = self.image.get_rect()
-        #每艘飞船都放在屏幕底部中央
         self.rect.midbottom = self.screen_rect.midbottom
 
+        self.x = float(self.rect.x)  # 初始化为浮点数
+        self.moving_right = False
+        self.moving_left = False
+
+    def update(self):
+        # 更新浮点数坐标
+        if self.moving_right:
+            if self.x + self.rect.width < self.screen_rect.right:
+                self.x += self.ai_game.settings.ship_speed
+        if self.moving_left:
+            if self.x > 0:
+                self.x -= self.ai_game.settings.ship_speed
+
+        # 转换为整数坐标
+        self.rect.x = int(self.x)  # 或使用 round(self.x)
+
     def blitme(self):
-        """在指定位置绘制飞船"""
-        self.screen.blit(self.image,self.rect)
+        self.screen.blit(self.image, self.rect)

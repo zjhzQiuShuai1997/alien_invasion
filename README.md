@@ -6,3 +6,9 @@ alien_invasion
 
 ## setting.py
 ### 存储游戏设置
+
+## ship.py
+### 存储飞船的类
+
+## bullet.py
+### 存储子弹的类

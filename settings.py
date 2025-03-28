@@ -13,13 +13,16 @@ class Settings:
         self.ship_speed = 1.5
         # 移动速度的倍率
         self.ship_magnification = 1
+        self.ship_limit = 3
+
+
         # 子弹设置
         #子弹发射的距离
         self.bullet_speed = 1.0
         #子弹宽度
-        self.bullet_width = 2
+        self.bullet_width = 4
         #子弹高度
-        self.bullet_height = 4
+        self.bullet_height = 8
         #获得强化道具———————子弹数量
         self.bullet_number = 3
         #子弹颜色

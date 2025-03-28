@@ -38,5 +38,10 @@ class Ship:
         self.rect.x = int(self.x)  # 或使用 round(self.x)
         self.rect.y = int(self.y)
 
+    def center_ship(self):
+        """将飞船放置在底部中央"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+
     def blitme(self):
         self.screen.blit(self.image, self.rect)

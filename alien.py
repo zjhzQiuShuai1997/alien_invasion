@@ -26,7 +26,6 @@ class Alien(Sprite):
         screen_rect = self.screen.get_rect()
         # if self.rect.right >= screen_rect.right or self.rect.left <= 0:
         #     return True
-        print(f"{self.rect.right >= screen_rect.right} || {self.rect.left <= 0}")
         return  (self.rect.right >= screen_rect.right) or (self.rect.left <= 0)
 
 

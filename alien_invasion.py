@@ -7,6 +7,7 @@ from alien import Alien
 from bullet import Bullet
 from button import Button
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from settings import Settings
 from ship import Ship
 
@@ -26,6 +27,7 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
         pygame.display.set_caption("黎小若大战社会人街溜子")
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
@@ -80,6 +82,7 @@ class AlienInvasion:
             # 还原游戏设置
             self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
+            self.sb.prep_score()
             self.game_active = True
             # 清空外星人列表和子弹列表
             self.aliens.empty()
@@ -87,6 +90,12 @@ class AlienInvasion:
             # 创建新的外星人舰队，并将飞船放置底部
             self._create_fleet()
             self.ship.center_ship()
+            self.settings.increase_speed()
+
+            # 提高等级
+            self.stats.level += 1
+            self.sb.prep_level()
+            self.sb.prep_level()
             # 游戏开始后隐藏光标
             pygame.mouse.set_visible(False)
 
@@ -135,8 +144,12 @@ class AlienInvasion:
         #检查是否有子弹击中了外星人
         #如果是，就删除对应的外星人
         # pygame.sprite.groupcollide: 四个参数，第一个是子弹编组，第二个是外星人编组，第三个是子弹是否消失，第四个是外星人是否消失
-        # collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
-        pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+            self.sb.prep_score()
+            self.sb.check_high_score()
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
@@ -237,6 +250,9 @@ class AlienInvasion:
             bullet.draw_bullet()
         self.ship.blitme()
         self.aliens.draw(self.screen)
+        # 显示得分
+        self.sb.show_score()
+        # 如果游戏处于非活动状态，就绘制 Play 按钮
         if not self.game_active:
             self.play_button.draw_button()
         pygame.display.flip()

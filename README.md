@@ -12,3 +12,12 @@ alien_invasion
 
 ## bullet.py
 ### 存储子弹的类
+
+## game_stats.py
+### 存储游戏统计信息的类
+
+## button.py
+### 存储按钮的类
+
+## scoreboard.py
+### 存储记分牌

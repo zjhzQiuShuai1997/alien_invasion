@@ -21,12 +21,14 @@ class Ship:
 
     def update(self):
         # 更新浮点数坐标
+        # 水平移动
         if self.moving_right:
             if self.x + self.rect.width < self.screen_rect.right:
                 self.x += self.ai_game.settings.ship_speed * self.ai_game.settings.ship_magnification
         if self.moving_left:
             if self.x > 0:
                 self.x -= self.ai_game.settings.ship_speed * self.ai_game.settings.ship_magnification
+        # 垂直移动
         if self.moving_up:
             if self.y > 0:
                 self.y -= self.ai_game.settings.ship_speed * self.ai_game.settings.ship_magnification

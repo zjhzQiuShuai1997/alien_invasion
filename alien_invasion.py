@@ -1,11 +1,14 @@
-import  sys
-from  time import sleep
-import  pygame
-from settings import Settings
-from game_stats import GameStats
-from ship import Ship
-from bullet import Bullet
+import sys
+from time import sleep
+
+import pygame
+
 from alien import Alien
+from bullet import Bullet
+from game_stats import GameStats
+from settings import Settings
+from ship import Ship
+
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
@@ -28,7 +31,8 @@ class AlienInvasion:
         self.invoke_count = 0
 
         self._create_fleet()
-        self.game_active = True
+        # 游戏一开始处于非活动状态
+        self.game_active = False
 
     def run_game(self):
         """开始游戏主循环"""
@@ -184,6 +188,7 @@ class AlienInvasion:
         """更新外星舰队中所有外星人的位置"""
         """检查是否有外星人位于屏幕边缘，并更新整个外星舰队的位置"""
         self._check_fleet_edges()
+        self.aliens.update()
         # 检测外星人和飞船之间的碰撞 spritecollideany：检测是否有两个元素块之间的碰撞
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self.invoke_count += 1

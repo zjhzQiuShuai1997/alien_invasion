@@ -73,9 +73,9 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """在玩家单机 play 按钮的时候开始游戏"""
-        button_check = self.play_button.rect.collidepoint(mouse_pos)
         # collidepoint: 判断鼠标点击位置是否在按钮内
         # mouse_pos: 鼠标点击位置
+        button_check = self.play_button.rect.collidepoint(mouse_pos)
         if button_check and not self.game_active:
         # if self.play_button.rect.collidepoint(mouse_pos):
             # 重置游戏的统计信息
@@ -126,6 +126,7 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """创建一颗子弹，并将其加入到编组bullets中"""
+        print('执行了')
         # if len(self.bullets) < self.settings.bullets_allowed:
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
